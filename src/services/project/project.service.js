@@ -19,6 +19,11 @@ class ProjectService {
     });
     return newProject;
   }
+
+  async getAllProjects(user) {
+    const projects = await Project.find({ user_id: user.id });
+    return projects;
+  }
 }
 
 export default new ProjectService();
