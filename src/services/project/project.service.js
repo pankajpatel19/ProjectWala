@@ -24,6 +24,15 @@ class ProjectService {
     const projects = await Project.find({ user_id: user.id });
     return projects;
   }
+
+  async deActivateProject(projectId, user) {
+    const project = await Project.findOneAndUpdate(
+      { _id: projectId, user_id: user.id },
+      { isActive: false },
+      { new: true }
+    );
+    return project;
+  }
 }
 
 export default new ProjectService();

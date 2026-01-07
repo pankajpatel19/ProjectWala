@@ -21,3 +21,12 @@ export const getAllProjectsService = catchAsync(async (req, res, next) => {
     data: projects,
   });
 });
+
+export const deActivateProjectService = catchAsync(async (req, res, next) => {
+  const { projectId } = req.params;
+  const project = await ProjectService.deActivateProject(projectId, req.user);
+  return res.status(200).json({
+    status: "success",
+    data: project,
+  });
+});

@@ -10,6 +10,7 @@ const projectSchema = new Schema(
     thumbnail: { type: String },
     file_url: { type: String },
     user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
