@@ -1,0 +1,40 @@
+{
+  "name": "projectwala",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/pankajpatel19/ProjectWala#readme",
+  "bugs": {
+    "url": "https://github.com/pankajpatel19/ProjectWala/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pankajpatel19/ProjectWala.git"
+  },
+  "license": "ISC",
+  "author": "Pankaj Patel",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "bcrypt": "^6.0.0",
+    "bullmq": "^5.66.4",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "ioredis": "^5.9.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.2",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.12",
+    "nodemon": "^3.1.11",
+    "razorpay": "^2.9.6",
+    "winston": "^3.19.0"
+  }
+}
