@@ -5,7 +5,7 @@ const uploadToCloudinary = async (filePath) => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
       folder: "myProjects",
-      type: "private",
+      type: "authenticated",
     });
 
     if (fs.existsSync(filePath)) {

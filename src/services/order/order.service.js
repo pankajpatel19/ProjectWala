@@ -46,8 +46,9 @@ class OrderService {
 
     const signedUrl = cloudinary.utils.private_download_url("", "zip", {
       resource_type: "raw",
-      type: "private",
+      type: "authenticated",
       expires_at: expiryTime,
+      flags: "attachedFile",
     });
     return signedUrl;
   }

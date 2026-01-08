@@ -25,8 +25,5 @@ export const downloadProject = catchAsync(async (req, res, next) => {
     userId: id,
     projectId,
   });
-  res.status(200).json({
-    status: "success",
-    data: { downloadUrl: signedUrl },
-  });
+  res.redirect(signedUrl);
 });
