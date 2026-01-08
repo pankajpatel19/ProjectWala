@@ -5,6 +5,7 @@ import {
   getAllProjectsService,
   deActivateProjectService,
   getProjectForUserService,
+  projectFilterService,
 } from "../../controllers/project/project.controller.js";
 import { authMiddleware } from "../../middleware/AuthMiddleware.js";
 import { roleAccess } from "../../middleware/roleAccess.middleware.js";
@@ -39,5 +40,11 @@ router.get(
   authMiddleware,
   roleAccess("user"),
   getProjectForUserService
+);
+router.get(
+  "/filter-projects?category=&techStack=&price=&skip=",
+  authMiddleware,
+  roleAccess("user"),
+  projectFilterService
 );
 export default router;

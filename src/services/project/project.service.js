@@ -51,6 +51,21 @@ class ProjectService {
     return project;
   }
 
+  async projectFilter({ category, techStack, price, skip }) {
+    const filterProject = await Project.find({
+      isActive: true,
+      ...(category && { primary_language: category }),
+      ...(techStack && { technology: techStack }),
+      ...(price && { price: { $lte: price } }),
+    })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .skip(skip ? parseInt(skip) : 0);
+    if (!filterProject) {
+      throw new ApiError("No projects found with the given filters", 404);
+    }
+    return filterProject;
+  }
   async getProjectForUser() {
     const project = await Project.find({ isActive: true })
       .sort({ createdAt: -1 })

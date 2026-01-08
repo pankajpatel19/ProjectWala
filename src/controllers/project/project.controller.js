@@ -38,3 +38,17 @@ export const getProjectForUserService = catchAsync(async (req, res, next) => {
     data: project,
   });
 });
+
+export const projectFilterService = catchAsync(async (req, res, next) => {
+  const { category, techStack, price, skip } = req.query;
+  const projects = await ProjectService.projectFilter({
+    category,
+    techStack,
+    price,
+    skip,
+  });
+  return res.status(200).json({
+    status: "success",
+    data: projects,
+  });
+});
