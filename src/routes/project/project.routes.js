@@ -4,9 +4,11 @@ import {
   createProjectService,
   getAllProjectsService,
   deActivateProjectService,
+  getProjectForUserService,
 } from "../../controllers/project/project.controller.js";
 import { authMiddleware } from "../../middleware/AuthMiddleware.js";
 import { roleAccess } from "../../middleware/roleAccess.middleware.js";
+import { isOwner } from "../../middleware/isOwner.middleware.js";
 const router = Router();
 
 router.post(
@@ -27,8 +29,15 @@ router.get(
 router.patch(
   "/deactivate-project/:projectId",
   authMiddleware,
-  roleAccess("seller"),
+  roleAccess("seller", "admin"),
+  isOwner,
   deActivateProjectService
 );
 
+router.get(
+  "/projects",
+  authMiddleware,
+  roleAccess("user"),
+  getProjectForUserService
+);
 export default router;

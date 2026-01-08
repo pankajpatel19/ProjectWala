@@ -1,11 +1,18 @@
 import Project from "../../models/project/project.model.js";
 import { uploadToCloudinary } from "../../utils/cloudinary/clodinary.js";
+import ApiError from "../../middleware/apiError.midllware.js";
 
 class ProjectService {
   async createProject(data, file, user) {
     const { name, description, price, primary_language, technology } = data;
-
+    if (!file) {
+      throw new ApiError("Project file is required", 400);
+    }
     const cloudUrl = await uploadToCloudinary(file.path);
+
+    if (!cloudUrl) {
+      throw new ApiError("Failed to upload file to cloud", 500);
+    }
 
     const newProject = await Project.create({
       name,
@@ -22,6 +29,9 @@ class ProjectService {
 
   async getAllProjects(user) {
     const projects = await Project.find({ user_id: user.id });
+    if (!projects) {
+      throw new ApiError("No projects found for this user", 404);
+    }
     return projects;
   }
 
@@ -31,6 +41,25 @@ class ProjectService {
       { isActive: false },
       { new: true }
     );
+
+    if (!project) {
+      throw new ApiError(
+        "Project not found or you do not have permission.",
+        404
+      );
+    }
+    return project;
+  }
+
+  async getProjectForUser() {
+    const project = await Project.find({ isActive: true })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .skip(0);
+
+    if (!project) {
+      throw new ApiError("No active projects found", 404);
+    }
     return project;
   }
 }

@@ -30,3 +30,11 @@ export const deActivateProjectService = catchAsync(async (req, res, next) => {
     data: project,
   });
 });
+
+export const getProjectForUserService = catchAsync(async (req, res, next) => {
+  const project = await ProjectService.getProjectForUser();
+  return res.status(200).json({
+    status: "success",
+    data: project,
+  });
+});

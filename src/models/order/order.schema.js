@@ -9,9 +9,9 @@ const orderSchema = new Schema(
       enum: ["Pending", "Confirmed", "Cancelled"],
       default: "Pending",
     },
-    total_amount: { type: Number, required: true },
-    amdin_fee: { type: Number, default: 0 },
+    project_amount: { type: Number, required: true },
     seller_amount: { type: Number, required: true },
+    admin_fee: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
