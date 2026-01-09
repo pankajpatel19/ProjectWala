@@ -12,10 +12,12 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
+    googleId: { type: String, unique: true },
     password: {
       type: String,
       required: true,
     },
+    avatar: String,
     role: {
       type: String,
       enum: ["user", "seller"],

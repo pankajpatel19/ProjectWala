@@ -8,10 +8,13 @@ import ProjectRoutes from "./routes/project/project.routes.js";
 import orderRoutes from "./routes/order/order.routes.js";
 import { globelErrorHandler } from "./middleware/globelError.handler.middleware.js";
 import cookieParser from "cookie-parser";
+import "./utils/OAuth.js";
+import passport from "passport";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 connectDB();
+app.use(passport.initialize());
 app.use(express.json());
 app.use(cookieParser());
 //--- IGNORE ---Routes

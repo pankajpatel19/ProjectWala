@@ -1,4 +1,5 @@
 import { Router } from "express";
+import passport from "passport";
 import {
   currentUser,
   getAllUsers,
@@ -18,4 +19,32 @@ router.get("/current-user", authMiddleware, roleAccess("user"), currentUser);
 router.get("/all-users", authMiddleware, roleAccess("admin"), getAllUsers);
 router.get("/seller-status/:id", authMiddleware, sellerStatus);
 
+router.get("/google", (req, res, next) => {
+  const role = req.query.role || "user";
+  passport.authenticate("google", { scope: ["profile", "email"], state: role })(
+    req,
+    res,
+    next
+  );
+});
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/login",
+  }),
+  (req, res) => {
+    // 3. Generate JWT for the user
+    const token = jwt.sign(
+      { id: req.user._id, role: req.user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    const frontUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    // 4. Redirect to Frontend with token (ya cookie set karo)
+    res.redirect(`${frontUrl}/auth-success?token=${token}`);
+  }
+);
 export default router;
