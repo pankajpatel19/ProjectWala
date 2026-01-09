@@ -5,11 +5,13 @@ import {
   getAllProjectsService,
   deActivateProjectService,
   getProjectForUserService,
-  projectFilterService,
 } from "../../controllers/project/project.controller.js";
 import { authMiddleware } from "../../middleware/AuthMiddleware.js";
 import { roleAccess } from "../../middleware/roleAccess.middleware.js";
 import { isOwner } from "../../middleware/isOwner.middleware.js";
+import { getSellerProjects } from "../../controllers/user/seller.controller.js";
+import { checkUserBeforePost } from "../../middleware/checkUserBeforePost.js";
+import { postCommentService } from "../../controllers/review/review.controller.js";
 const router = Router();
 
 router.post(
@@ -27,6 +29,7 @@ router.get(
   getAllProjectsService
 );
 
+router.get("/getProjects/:id", authMiddleware, getSellerProjects);
 router.patch(
   "/deactivate-project/:projectId",
   authMiddleware,
@@ -40,6 +43,14 @@ router.get(
   authMiddleware,
   roleAccess("user"),
   getProjectForUserService
+);
+
+router.post(
+  "/projects/:id/post-comment",
+  authMiddleware,
+  roleAccess,
+  checkUserBeforePost,
+  postCommentService
 );
 // router.get(
 //   "/filter-projects?category=&techStack=&price=&skip=",

@@ -6,7 +6,6 @@ import connectDB from "./config/db.config.js";
 import userRoutes from "./routes/user/user.routes.js";
 import ProjectRoutes from "./routes/project/project.routes.js";
 import orderRoutes from "./routes/order/order.routes.js";
-import reviewRouter from "./routes/review/review.routes.js";
 import { globelErrorHandler } from "./middleware/globelError.handler.middleware.js";
 import cookieParser from "cookie-parser";
 const app = express();
@@ -22,7 +21,6 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/projects", ProjectRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api/reviews", reviewRouter);
 
 app.use(globelErrorHandler);
 
