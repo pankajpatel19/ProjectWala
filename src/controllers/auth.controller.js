@@ -1,5 +1,5 @@
-import authService from "../../services/user/auth.service.js";
-import { catchAsync } from "../../middleware/catchAsync.middleware.js";
+import authService from "../services/auth.service.js";
+import { catchAsync } from "../middleware/catchAsync.middleware.js";
 
 export const signup = catchAsync(async (req, res, next) => {
   try {

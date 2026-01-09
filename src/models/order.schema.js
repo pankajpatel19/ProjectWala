@@ -9,9 +9,14 @@ const orderSchema = new Schema(
       enum: ["Pending", "Confirmed", "Cancelled"],
       default: "Pending",
     },
-    project_amount: { type: Number, required: true },
-    seller_amount: { type: Number, required: true },
-    admin_fee: { type: Number, default: 0 },
+    amount: { type: Number, required: true },
+
+    razorpay_order_id: {
+      type: String,
+    },
+    paymentId: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

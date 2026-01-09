@@ -1,6 +1,6 @@
-import User from "../../models/user/user.model.js";
-import ApiError from "../../middleware/apiError.midllware.js";
-import { generateToken } from "../../utils/jwt/jwtToken.js";
+import User from "../models/user.model.js";
+import ApiError from "../middleware/apiError.midllware.js";
+import { generateToken } from "../utils/jwt/jwtToken.js";
 
 class AuthService {
   async signup({ name, email, password, role }) {

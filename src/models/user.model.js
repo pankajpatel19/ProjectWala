@@ -23,6 +23,10 @@ const userSchema = new Schema(
       enum: ["user", "seller"],
       default: "user",
     },
+    balance: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

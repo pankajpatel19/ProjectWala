@@ -1,4 +1,4 @@
-import Project from "../../models/project/project.model.js";
+import Project from "../../models/project.model.js";
 import { uploadToCloudinary } from "../../utils/cloudinary/clodinary.js";
 import ApiError from "../../middleware/apiError.midllware.js";
 

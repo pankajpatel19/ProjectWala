@@ -1,16 +1,16 @@
 import { Router } from "express";
-import upload from "../../middleware/multer.middleware.js";
+import upload from "../middleware/multer.middleware.js";
 import {
   createProjectService,
   getAllProjectsService,
   deActivateProjectService,
   getProjectForUserService,
 } from "../../controllers/project/project.controller.js";
-import { authMiddleware } from "../../middleware/AuthMiddleware.js";
-import { roleAccess } from "../../middleware/roleAccess.middleware.js";
-import { isOwner } from "../../middleware/isOwner.middleware.js";
+import { authMiddleware } from "../middleware/AuthMiddleware.js";
+import { roleAccess } from "../middleware/roleAccess.middleware.js";
+import { isOwner } from "../middleware/isOwner.middleware.js";
 import { getSellerProjects } from "../../controllers/user/seller.controller.js";
-import { checkUserBeforePost } from "../../middleware/checkUserBeforePost.js";
+import { checkUserBeforePost } from "../middleware/checkUserBeforePost.js";
 import { postCommentService } from "../../controllers/review/review.controller.js";
 const router = Router();
 

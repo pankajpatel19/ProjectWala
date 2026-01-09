@@ -1,6 +1,6 @@
-import Order from "../../models/order/order.schema.js";
-import ApiError from "../../middleware/apiError.midllware.js";
-import cloudinary from "../../config/cloudinary.config.js";
+import Order from "../models/order.schema.js";
+import ApiError from "../middleware/apiError.midllware.js";
+import cloudinary from "../config/cloudinary.config.js";
 
 class OrderService {
   async createOrder({ userId, projectId, projectAmount }) {

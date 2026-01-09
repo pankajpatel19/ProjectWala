@@ -6,8 +6,8 @@ import {
   login,
   signup,
 } from "../../controllers/user/auth.controller.js";
-import { authMiddleware } from "../../middleware/AuthMiddleware.js";
-import { roleAccess } from "../../middleware/roleAccess.middleware.js";
+import { authMiddleware } from "../middleware/AuthMiddleware.js";
+import { roleAccess } from "../middleware/roleAccess.middleware.js";
 import { sellerStatus } from "../../controllers/user/seller.controller.js";
 
 const router = Router();
@@ -43,8 +43,15 @@ router.get(
     );
 
     const frontUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    const options = {
+      expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "None",
+    };
+
     // 4. Redirect to Frontend with token (ya cookie set karo)
-    res.redirect(`${frontUrl}/auth-success?token=${token}`);
+    res.cookie("token", token, options).redirect(`${frontUrl}/auth-success`);
   }
 );
 export default router;

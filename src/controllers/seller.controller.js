@@ -1,6 +1,6 @@
-import ApiError from "../../middleware/apiError.midllware.js";
-import { catchAsync } from "../../middleware/catchAsync.middleware.js";
-import Project from "../../models/project/project.model.js";
+import ApiError from "../middleware/apiError.midllware.js";
+import { catchAsync } from "../middleware/catchAsync.middleware.js";
+import Project from "../models/project.model.js";
 
 export const sellerStatus = catchAsync(async (req, res, next) => {
   const { id } = req.params;

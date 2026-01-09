@@ -1,5 +1,5 @@
-import { catchAsync } from "../../middleware/catchAsync.middleware.js";
-import orderService from "../../services/order/order.service.js";
+import { catchAsync } from "../middleware/catchAsync.middleware.js";
+import orderService from "../services/order.service.js";
 
 export const checkOut = catchAsync(async (req, res, next) => {
   const { projectId } = req.params;
