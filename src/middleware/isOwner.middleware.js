@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import ApiError from "./apiError.midllware.js";
-import Project from "../models/project/project.model";
+import Project from "../models/project/project.model.js";
 
 export const isOwner = async (req, res, next) => {
   try {

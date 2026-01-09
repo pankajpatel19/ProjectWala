@@ -41,10 +41,10 @@ router.get(
   roleAccess("user"),
   getProjectForUserService
 );
-router.get(
-  "/filter-projects?category=&techStack=&price=&skip=",
-  authMiddleware,
-  roleAccess("user"),
-  projectFilterService
-);
+// router.get(
+//   "/filter-projects?category=&techStack=&price=&skip=",
+//   authMiddleware,
+//   roleAccess("user"),
+//   projectFilterService
+// );
 export default router;
