@@ -1,9 +1,8 @@
 class ApiError extends Error {
-  constructor(parameters) {
-    super(parameters);
-    this.statusCode = parameters.statusCode;
-    this.message = parameters.message;
-    this.isOperational = parameters.isOperational || true;
+  constructor(statusCode, message = "Something went wrong") {
+    super(message);
+    this.statusCode = statusCode || 500;
+    this.message = message;
 
     Error.captureStackTrace(this, this.constructor);
   }
