@@ -1,6 +1,6 @@
-import Project from "../../models/project.model.js";
-import { uploadToCloudinary } from "../../utils/cloudinary/clodinary.js";
-import ApiError from "../../middleware/apiError.midllware.js";
+import Project from "../models/project.model.js";
+import { uploadToCloudinary } from "../utils/cloudinary/clodinary.js";
+import ApiError from "../middleware/apiError.midllware.js";
 
 class ProjectService {
   async createProject(data, file, user) {

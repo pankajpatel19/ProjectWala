@@ -1,10 +1,7 @@
 import { Router } from "express";
 import { authMiddleware } from "../middleware/AuthMiddleware.js";
 import { roleAccess } from "../middleware/roleAccess.middleware.js";
-import {
-  checkOut,
-  downloadProject,
-} from "../../controllers/order/order.controller.js";
+import { checkOut, downloadProject } from "../controllers/order.controller.js";
 import { isPurchased } from "../middleware/isPurchased.js";
 const router = Router();
 

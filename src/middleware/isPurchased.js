@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Order from "../models/order/order.schema.js";
+import Order from "../models/order.schema.js";
 
 export const isPurchased = async (req, res, next) => {
   try {

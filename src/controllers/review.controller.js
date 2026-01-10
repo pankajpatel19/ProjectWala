@@ -1,5 +1,5 @@
 import { catchAsync } from "../middleware/catchAsync.middleware.js";
-import ReviewService from "../services/review/review.service.js";
+import ReviewService from "../services/review.service.js";
 
 export const postCommentService = catchAsync(async (req, res) => {
   // Implementation for posting a comment

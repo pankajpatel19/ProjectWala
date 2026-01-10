@@ -1,4 +1,4 @@
-import ApiError from "../../middleware/apiError.midllware.js";
+import ApiError from "../middleware/apiError.midllware.js";
 
 class ReviewSchema {
   async postComment({ projectId, userId, comment, rating }) {

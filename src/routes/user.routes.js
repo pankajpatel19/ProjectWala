@@ -5,10 +5,10 @@ import {
   getAllUsers,
   login,
   signup,
-} from "../../controllers/user/auth.controller.js";
+} from "../controllers/auth.controller.js";
 import { authMiddleware } from "../middleware/AuthMiddleware.js";
 import { roleAccess } from "../middleware/roleAccess.middleware.js";
-import { sellerStatus } from "../../controllers/user/seller.controller.js";
+import { sellerStatus } from "../controllers/seller.controller.js";
 
 const router = Router();
 

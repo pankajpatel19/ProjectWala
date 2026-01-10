@@ -1,4 +1,4 @@
-import Project from "../models/project/project.model.js";
+import Project from "../models/project.model.js";
 
 export const checkUserBeforePost = async (req, res, next) => {
   try {

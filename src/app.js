@@ -4,8 +4,8 @@ dotenv.config();
 import express from "express";
 import connectDB from "./config/db.config.js";
 import userRoutes from "./routes/user.routes.js";
-import ProjectRoutes from "./routes/project/project.routes.js";
-import orderRoutes from "./routes/order/order.routes.js";
+import ProjectRoutes from "./routes/project.routes.js";
+import orderRoutes from "./routes/order.routes.js";
 import { globelErrorHandler } from "./middleware/globelError.handler.middleware.js";
 import cookieParser from "cookie-parser";
 import "./utils/OAuth.js";
@@ -18,6 +18,7 @@ connectDB();
 app.use(passport.initialize());
 app.use(express.json());
 app.use(cookieParser());
+
 //--- IGNORE ---Routes
 app.get("/", (req, res) => {
   res.send("Hello, World!");
