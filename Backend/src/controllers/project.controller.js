@@ -33,6 +33,7 @@ export const deActivateProjectService = catchAsync(async (req, res, next) => {
 
 export const getProjectForUserService = catchAsync(async (req, res, next) => {
   const project = await ProjectService.getProjectForUser();
+  console.log(project);
   return res.status(200).json({
     status: "success",
     data: project,

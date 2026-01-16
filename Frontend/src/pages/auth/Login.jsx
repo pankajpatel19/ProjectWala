@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { Link, Navigate } from "react-router-dom";
+import { useLoginMutate } from "@/hooks/useAuth";
+import { toast, ToastContainer } from "react-toastify";
+import { Chrome, Github, Facebook } from "lucide-react";
 
 function Login() {
   const { register, handleSubmit } = useForm();
+
+  const { data, mutate, isSuccess, isError, isPending } = useLoginMutate();
+
+  if (isSuccess && data) {
+    toast.success(data?.message);
+  }
+
   const onSubmit = (formData) => {
-    console.log("Login submitted:", formData);
-    alert(`Welcome back!`);
+    mutate(formData);
   };
 
   const containerVariants = {
@@ -33,6 +43,7 @@ function Login() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <ToastContainer />
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -98,22 +109,62 @@ function Login() {
             variants={itemVariants}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            disabled={isPending}
             type="submit"
             className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all shadow-lg hover:shadow-xl"
           >
-            Sign In
+            {isPending ? "Please Wait" : "SignIn"}
           </motion.button>
         </form>
 
         <motion.div variants={itemVariants} className="mt-8 text-center">
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-4 mb-6">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center w-12 h-12 border-2 border-gray-300 rounded-full hover:border-blue-500 hover:bg-blue-50 transition-all"
+            >
+              <a href="http://localhost:3000/api/auth/google">
+                <Chrome className="w-6 h-6 text-blue-500" />
+              </a>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center w-12 h-12 border-2 border-gray-300 rounded-full hover:border-gray-800 hover:bg-gray-50 transition-all"
+            >
+              <Github className="w-6 h-6 text-gray-800" />
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center w-12 h-12 border-2 border-gray-300 rounded-full hover:border-blue-600 hover:bg-blue-50 transition-all"
+            >
+              <Facebook className="w-6 h-6 text-blue-600" />
+            </motion.button>
+          </div>
+
           <p className="text-sm text-gray-600">
             Don't have an account?{" "}
-            <a
-              href="#"
+            <Link
+              to={"/signup"}
               className="text-blue-600 hover:text-blue-700 font-semibold"
             >
               Sign Up
-            </a>
+            </Link>
           </p>
         </motion.div>
       </motion.div>

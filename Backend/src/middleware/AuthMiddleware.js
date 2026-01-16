@@ -2,6 +2,8 @@ import User from "../models/user.model.js";
 import { verifyToken } from "../utils/jwt/jwtToken.js";
 
 export const authMiddleware = async (req, res, next) => {
+  console.log("call");
+
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -10,7 +12,8 @@ export const authMiddleware = async (req, res, next) => {
   try {
     const decoded = verifyToken(token);
     const user = await User.findById(decoded.id).select("-password");
-    req.user = decoded;
+
+    req.user = user;
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
   }

@@ -5,6 +5,7 @@ import { generateToken } from "../utils/jwt/jwtToken.js";
 class AuthService {
   async signup({ name, email, password, role }) {
     const exist = await User.findOne({ email });
+    console.log(name, email, role);
 
     if (exist) {
       throw new ApiError(400, "User already exists");
@@ -32,7 +33,7 @@ class AuthService {
   }
 
   async currentUser(userId) {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select("-password -balance");
     return user;
   }
 

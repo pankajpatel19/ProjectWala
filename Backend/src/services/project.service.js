@@ -67,6 +67,8 @@ class ProjectService {
     return filterProject;
   }
   async getProjectForUser() {
+    console.log("call");
+
     const project = await Project.find({ isActive: true })
       .sort({ createdAt: -1 })
       .limit(10)

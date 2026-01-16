@@ -7,7 +7,7 @@ export const signup = catchAsync(async (req, res, next) => {
 
     const user = await authService.signup({ name, email, password, role });
 
-    res.status(201).json({ user });
+    res.status(201).json({ message: "User Registered" });
   } catch (error) {
     console.log(error);
 
@@ -23,11 +23,14 @@ export const login = catchAsync(async (req, res, next) => {
     const options = {
       expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV !== "production",
       sameSite: "None",
     };
 
-    res.status(200).cookie("token", token, options).json({ user });
+    res
+      .status(200)
+      .cookie("token", token, options)
+      .json({ message: "Login SuccessFully" });
   } catch (error) {
     console.log(error);
     next(error.message);

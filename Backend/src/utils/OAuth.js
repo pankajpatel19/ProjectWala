@@ -1,7 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from "../models/user.model.js";
-
 passport.use(
   new GoogleStrategy(
     {
@@ -10,7 +9,7 @@ passport.use(
       callbackURL: "/api/auth/google/callback",
       passReqToCallback: true,
     },
-    async (req, accessToken, refreshToken, profile, done) => {
+    async (req, res, accessToken, refreshToken, profile, done) => {
       try {
         let user = await User.findOne({ googleId: profile.id });
 
@@ -18,7 +17,7 @@ passport.use(
           return done(null, user);
         }
 
-        const role = req.query.role || "user";
+        const role = req.query.state || "user";
 
         user = await User.create({
           googleId: profile.id,
@@ -27,11 +26,25 @@ passport.use(
           avatar: profile.photos[0].value,
           role: role,
         });
+
         return done(null, user);
       } catch (error) {
-        console.error(error.message);
+        console.error("OAuth Error:", error.message);
         return done(error, null);
       }
     }
   )
 );
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});

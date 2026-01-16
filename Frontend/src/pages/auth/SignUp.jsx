@@ -2,13 +2,24 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSignUpMutate } from "@/hooks/useAuth";
+import { ToastContainer } from "react-toastify";
+import { signupValidation } from "@/validation/auth";
 
 function SignUp() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+    resolver: zodResolver(signupValidation),
+  });
+  const { mutate, data, isSuccess } = useSignUpMutate();
 
   const onSubmit = (formData) => {
-    console.log("Form submitted:", formData);
-    alert(`Welcome ${formData.name}! Account created successfully.`);
+    mutate(formData);
   };
 
   const containerVariants = {
@@ -35,6 +46,7 @@ function SignUp() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <ToastContainer />
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -49,25 +61,25 @@ function SignUp() {
         </motion.h2>
 
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-          {/* Name Field */}
           <motion.div variants={itemVariants}>
             <label
               htmlFor="name"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Full Name
+              User Name
             </label>
             <input
               type="text"
               name="name"
-              required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
               placeholder="Enter your name"
-              {...register("name")}
+              {...register("name", { required: "UserName is required" })}
             />
+            {errors?.name && (
+              <span className="m-2 text-red-600">{errors.name.message}</span>
+            )}
           </motion.div>
 
-          {/* Email Field */}
           <motion.div variants={itemVariants}>
             <label
               htmlFor="email"
@@ -83,9 +95,11 @@ function SignUp() {
               placeholder="Enter your email"
               {...register("email")}
             />
+            {errors?.email && (
+              <span className="m-2 text-red-600">{errors.email.message}</span>
+            )}
           </motion.div>
 
-          {/* Password Field */}
           <motion.div variants={itemVariants}>
             <label
               htmlFor="password"
@@ -101,6 +115,32 @@ function SignUp() {
               placeholder="Create a password"
               {...register("password")}
             />
+            {errors?.password && (
+              <span className="m-2 text-red-600">
+                {errors.password.message}
+              </span>
+            )}
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="ConfirmPassword"
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+              placeholder="Create a password"
+              {...register("ConfirmPassword")}
+            />
+            {errors?.ConfirmPassword && (
+              <span className="m-2 text-red-600">
+                {errors.ConfirmPassword.message}
+              </span>
+            )}
           </motion.div>
 
           {/* Role Field */}
