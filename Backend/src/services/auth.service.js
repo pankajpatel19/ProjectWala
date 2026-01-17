@@ -27,6 +27,7 @@ class AuthService {
     if (!isCorrectPassword) {
       throw new ApiError(401, "Invalid credentials");
     }
+
     const token = generateToken({ id: user._id, role: user.role });
 
     return { user, token };
@@ -34,12 +35,22 @@ class AuthService {
 
   async currentUser(userId) {
     const user = await User.findById(userId).select("-password -balance");
+
     return user;
   }
 
   async getAllUsers() {
     const users = await User.find();
     return users;
+  }
+
+  async logout(res) {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "production",
+      sameSite: "None",
+    });
+    return { message: "Logout successful" };
   }
 }
 

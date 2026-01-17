@@ -30,7 +30,7 @@ export const login = catchAsync(async (req, res, next) => {
     res
       .status(200)
       .cookie("token", token, options)
-      .json({ message: "Login SuccessFully" });
+      .json({ message: "Login SuccessFully", success: true });
   } catch (error) {
     console.log(error);
     next(error.message);
@@ -52,6 +52,16 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
   try {
     const users = await authService.getAllUsers();
     res.status(200).json({ users });
+  } catch (error) {
+    console.log(error);
+    next(error.message);
+  }
+});
+
+export const logout = catchAsync(async (req, res, next) => {
+  try {
+    await authService.logout(res);
+    res.status(200).json({ message: "Logout Successful" });
   } catch (error) {
     console.log(error);
     next(error.message);

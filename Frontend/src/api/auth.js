@@ -19,21 +19,31 @@ export const login = async (formData) => {
 
     return data;
   } catch (error) {
-    return error.response.data.message;
+    throw new Error(error.response?.data?.message || "Login failed");
   }
 };
 
 export const current = async () => {
-  console.log("call");
-
   try {
     const { data } = await app.get("/users/current-user", {
       withCredentials: true,
     });
-    console.log(data);
 
     return data;
   } catch (error) {
-    console.error(error);
+    throw new Error(error.response?.data?.message || "Failed to fetch Current");
+  }
+};
+
+export const logout = async () => {
+  try {
+    console.log("call");
+    const { data } = await app.get("/users/logout", {
+      withCredentials: true,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to logout");
   }
 };

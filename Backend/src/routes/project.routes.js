@@ -29,7 +29,7 @@ router.get(
   getAllProjectsService
 );
 
-router.get("/getProjects/:id", authMiddleware, getSellerProjects);
+router.get("/projects/:id", authMiddleware, getSellerProjects);
 router.patch(
   "/deactivate-project/:projectId",
   authMiddleware,

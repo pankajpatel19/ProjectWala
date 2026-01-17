@@ -2,8 +2,6 @@ import User from "../models/user.model.js";
 import { verifyToken } from "../utils/jwt/jwtToken.js";
 
 export const authMiddleware = async (req, res, next) => {
-  console.log("call");
-
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {

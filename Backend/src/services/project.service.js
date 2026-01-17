@@ -29,6 +29,7 @@ class ProjectService {
 
   async getAllProjects(user) {
     const projects = await Project.find({ user_id: user.id });
+
     if (!projects) {
       throw new ApiError("No projects found for this user", 404);
     }
@@ -67,12 +68,9 @@ class ProjectService {
     return filterProject;
   }
   async getProjectForUser() {
-    console.log("call");
-
-    const project = await Project.find({ isActive: true })
-      .sort({ createdAt: -1 })
-      .limit(10)
-      .skip(0);
+    const project = await Project.find({ isActive: true }).sort({
+      createdAt: -1,
+    });
 
     if (!project) {
       throw new ApiError("No active projects found", 404);

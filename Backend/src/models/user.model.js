@@ -12,7 +12,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
     },
-    googleId: { type: String, unique: true, sparse: true, default: null },
+    googleId: { type: String, unique: true, sparse: true },
     password: {
       type: String,
     },

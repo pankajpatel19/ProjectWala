@@ -26,10 +26,11 @@ export const sellerStatus = catchAsync(async (req, res, next) => {
 
 export const getSellerProjects = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+
   if (!id) {
     throw new ApiError("Seller ID is required", 400);
   }
-  const projects = await Project.find({ user_id: id });
+  const projects = await Project.findById(id);
 
   if (!projects || projects.length === 0) {
     throw new ApiError("No projects found for this seller", 404);

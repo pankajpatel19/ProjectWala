@@ -1,9 +1,9 @@
 import { Router } from "express";
-import passport from "passport";
 import {
   currentUser,
   getAllUsers,
   login,
+  logout,
   signup,
 } from "../controllers/auth.controller.js";
 import { authMiddleware } from "../middleware/AuthMiddleware.js";
@@ -15,6 +15,7 @@ const router = Router();
 
 router.post("/signup", signup);
 router.post("/login", loginLimiter, login);
+router.get("/logout", authMiddleware, roleAccess("user"), logout);
 router.get("/current-user", authMiddleware, roleAccess("user"), currentUser);
 router.get("/all-users", authMiddleware, roleAccess("admin"), getAllUsers);
 router.get("/seller-status/:id", authMiddleware, sellerStatus);

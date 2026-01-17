@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, replace, useNavigate } from "react-router-dom";
 import { useLoginMutate } from "@/hooks/useAuth";
 import { toast, ToastContainer } from "react-toastify";
 import { Chrome, Github, Facebook } from "lucide-react";
 
 function Login() {
   const { register, handleSubmit } = useForm();
-
-  const { data, mutate, isSuccess, isError, isPending } = useLoginMutate();
-
-  if (isSuccess && data) {
-    toast.success(data?.message);
-  }
+  const navigate = useNavigate();
+  const { data, mutate, isSuccess, error, isPending } = useLoginMutate();
 
   const onSubmit = (formData) => {
     mutate(formData);
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.message);
+    }
+  }, [error]);
 
   const containerVariants = {
     hidden: { opacity: 0, y: -50 },
